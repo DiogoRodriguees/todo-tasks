@@ -6,8 +6,7 @@ import { AuthGuard } from 'src/services/AuthGuard';
   imports: [
     JwtModule.register({
       global: true,
-      secret: 'my-secret',
-      signOptions: { expiresIn: '60s' },
+      secret: process.env.JWT_SECRET,
     }),
   ],
   providers: [AuthGuard],

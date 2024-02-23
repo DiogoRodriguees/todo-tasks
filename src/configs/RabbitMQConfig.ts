@@ -3,7 +3,7 @@ import { ClientProviderOptions, Transport } from '@nestjs/microservices';
 
 ConfigModule.forRoot();
 
-const MessageClientConfig: ClientProviderOptions = {
+const ClientMessageConfig: ClientProviderOptions = {
   name: process.env.MESSAGE_BROKER as string,
   transport: Transport.RMQ,
   options: {
@@ -14,4 +14,5 @@ const MessageClientConfig: ClientProviderOptions = {
     },
   },
 };
-export default MessageClientConfig;
+
+export default ClientMessageConfig;

@@ -1,23 +1,23 @@
-import { Controller, HttpStatus, Post, UseGuards } from '@nestjs/common';
-import { CreateTaskMessageDTO } from 'src/classes/dtos/CreateTaskMessageDTO';
+import { Body, Controller, HttpStatus, Post, Put, Req, UseGuards } from '@nestjs/common';
 import { ResponseDTO } from 'src/classes/dtos/ResponseDTO';
-import { TaskMessageProducer } from 'src/producers/TaskMessageProducer';
+import { TaskDTO } from 'src/classes/dtos/TaskDTO';
 import { AuthGuard } from 'src/services/AuthGuard';
+import { TaskService } from 'src/services/TaskService';
 
 @Controller()
 @UseGuards(AuthGuard)
 export class TaskController {
-  constructor(private readonly producerMessage: TaskMessageProducer) {}
+  constructor(private readonly taskService: TaskService) {}
 
   @Post()
-  async create() {
-    const message = new CreateTaskMessageDTO('New Task Created');
+  async create(@Req() request: any, @Body() taskDTO: TaskDTO) {
+    const task = await this.taskService.create({ ...taskDTO, createdBy: request.user.id });
+    return new ResponseDTO(HttpStatus.OK, 'Task created', { task });
+  }
 
-    new Promise(
-      async (resolve) =>
-        await this.producerMessage.taskCreated(resolve, message),
-    );
-
-    return new ResponseDTO(HttpStatus.OK, 'Task created', {});
+  @Put()
+  async update(@Req() request: any, @Body() taskDTO: TaskDTO) {
+    const task = await this.taskService.update({ ...taskDTO, updatedBy: request.user.id });
+    return new ResponseDTO(HttpStatus.OK, 'Task updated', { task });
   }
 }
