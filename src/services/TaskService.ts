@@ -28,6 +28,7 @@ export class TaskService {
   async delete(id: string, userId: string) {
     const task = await this.taskRepository.getById(id);
     task.setDeletedBy(userId);
+    await this.taskRepository.save(task);
     return await this.taskRepository.softRemove(task);
   }
 }
