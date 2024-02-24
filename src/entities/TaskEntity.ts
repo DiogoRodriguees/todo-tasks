@@ -13,6 +13,9 @@ export class TaskEntity {
   @Column({ name: 'updated_by', type: 'uuid', nullable: true })
   updatedBy: string;
 
+  @Column({ name: 'deleted_by', type: 'uuid', nullable: true })
+  deletedBy: string;
+
   @Column({ name: 'title', type: 'varchar', nullable: false })
   title: string;
 
@@ -36,9 +39,12 @@ export class TaskEntity {
   }
 
   public update(taskDTO: TaskDTO) {
-    this.createdBy = taskDTO.createdBy || this.createdBy;
     this.updatedBy = taskDTO.updatedBy || this.updatedBy;
     this.title = taskDTO.title || this.title;
     this.description = taskDTO.description || this.description;
+  }
+
+  public setDeletedBy(userId: string) {
+    this.deletedBy = userId;
   }
 }
