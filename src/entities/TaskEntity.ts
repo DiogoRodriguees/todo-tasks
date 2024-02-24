@@ -1,4 +1,3 @@
-import { TaskDTO } from 'src/classes/dtos/TaskDTO';
 import { Column, CreateDateColumn, DeleteDateColumn, Entity, Generated, PrimaryColumn, UpdateDateColumn } from 'typeorm';
 
 @Entity('tasks')
@@ -38,10 +37,10 @@ export class TaskEntity {
     this.description = description;
   }
 
-  public update(taskDTO: TaskDTO) {
-    this.updatedBy = taskDTO.updatedBy || this.updatedBy;
-    this.title = taskDTO.title || this.title;
-    this.description = taskDTO.description || this.description;
+  public update(updatedBy: string, title: string, description: string) {
+    this.updatedBy = updatedBy || this.updatedBy;
+    this.title = title || this.title;
+    this.description = description || this.description;
   }
 
   public setDeletedBy(userId: string) {

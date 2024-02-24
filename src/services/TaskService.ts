@@ -7,6 +7,7 @@ import { TaskRepository } from 'src/repositories/TaskRepository';
 @Injectable()
 export class TaskService {
   constructor(private readonly taskRepository: TaskRepository) {}
+
   async create(taskDTO: TaskDTO, userId: string) {
     const task = new TaskEntity(userId, null, taskDTO.title, taskDTO.description);
     const { id, title, createdBy, description, updatedBy } = await this.taskRepository.save(task);
@@ -21,7 +22,7 @@ export class TaskService {
 
   async update(taskDTO: TaskDTO) {
     const task = await this.taskRepository.getById(taskDTO.id);
-    task.update(taskDTO);
+    task.update(taskDTO.updatedBy, taskDTO.title, taskDTO.description);
     return await this.taskRepository.save(task);
   }
 

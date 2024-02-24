@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 import { ClientsModule } from '@nestjs/microservices';
-import ClientMessageConfig from 'src/configs/RabbitMQConfig';
+import ClientMessageMailConfig from 'src/configs/ClientMessageMailConfig';
 import { TaskMessageProducer } from 'src/producers/TaskMessageProducer';
 
 @Module({
-  imports: [ClientsModule.register([ClientMessageConfig])],
+  imports: [ClientsModule.register([ClientMessageMailConfig])],
   providers: [TaskMessageProducer],
   exports: [TaskMessageProducer],
 })
