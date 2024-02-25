@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 export const TaskCreateSchema = z.object({
   title: z.string(),
-  description: z.string().nullable(),
+  description: z.string().nullable().optional(),
 });
 
 export const TaskFindSchema = z.object({
