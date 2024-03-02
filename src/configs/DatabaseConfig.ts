@@ -1,7 +1,7 @@
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
-import { TasksListEntity } from 'src/entities/ListEntity';
-import { TaskEntity } from 'src/entities/TaskEntity';
+import { TasksListEntity } from 'src/modules/lists/ListEntity';
+import { TaskEntity } from 'src/modules/tasks/TaskEntity';
 
 ConfigModule.forRoot();
 

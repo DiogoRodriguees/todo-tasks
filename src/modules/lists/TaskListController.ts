@@ -2,9 +2,9 @@ import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Req, UsePipes }
 import { ZodValidationPipe } from 'nestjs-zod';
 import { Request } from 'src/classes/dtos/Request';
 import { ResponseDTO } from 'src/classes/dtos/ResponseDTO';
-import { TaskListDTO } from 'src/classes/dtos/tasksList/TaskListDTO';
+import { TaskListDTO } from 'src/classes/dtos/lists/TaskListDTO';
 import { CreateListSchema, ListDeleteSchema } from 'src/schemas/TaskListSchema';
-import { TaskListService } from 'src/services/TaskListService';
+import { TaskListService } from './TaskListService';
 
 @Controller('/v1/list')
 export class TaskListController {

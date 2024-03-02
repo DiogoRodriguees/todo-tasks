@@ -1,6 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { TaskListDTO } from 'src/classes/dtos/tasksList/TaskListDTO';
+import { TaskListDTO } from 'src/classes/dtos/lists/TaskListDTO';
 import { Repository } from 'typeorm';
 import { TasksListEntity } from './ListEntity';
 
