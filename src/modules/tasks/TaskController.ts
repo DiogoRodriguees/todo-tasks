@@ -5,8 +5,8 @@ import { ResponseDTO } from 'src/classes/dtos/ResponseDTO';
 import { TaskDTO } from 'src/classes/dtos/tasks/TaskDTO';
 import { TaskQueryDTO } from 'src/classes/dtos/tasks/TaskQueryDTO';
 import { TaskEntity } from 'src/entities/TaskEntity';
+import { TaskService } from 'src/modules/tasks/TaskService';
 import { TaskCreateSchema, TaskDeleteSchema, TaskFindSchema, TaskUpdateSchema } from 'src/schemas/TaskSchema';
-import { TaskService } from 'src/services/TaskService';
 
 @Controller()
 export class TaskController {

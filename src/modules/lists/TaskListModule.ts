@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { TaskListController } from 'src/controllers/TaskListController';
-import { TasksListEntity } from 'src/entities/ListEntity';
-import { TaskListRepository } from 'src/repositories/TaskListRepository';
-import { TaskListService } from 'src/services/TaskListService';
+import { TasksListEntity } from './ListEntity';
+import { TaskListController } from './TaskListController';
+import { TaskListRepository } from './TaskListRepository';
+import { TaskListService } from './TaskListService';
 
 @Module({
   imports: [TypeOrmModule.forFeature([TasksListEntity])],

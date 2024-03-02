@@ -1,8 +1,8 @@
 import { NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { TaskQueryDTO } from 'src/classes/dtos/tasks/TaskQueryDTO';
-import { TaskEntity } from 'src/entities/TaskEntity';
 import { IsNull, Repository } from 'typeorm';
+import { TaskEntity } from './TaskEntity';
 
 export class TaskRepository extends Repository<TaskEntity> {
   readonly taskTable: string;
