@@ -2,8 +2,9 @@ import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Put, Query, Req
 import { ZodValidationPipe } from 'nestjs-zod';
 import { Request } from 'src/classes/dtos/Request';
 import { ResponseDTO } from 'src/classes/dtos/ResponseDTO';
-import { TaskDTO } from 'src/classes/dtos/TaskDTO';
-import { TaskQueryDTO } from 'src/classes/dtos/TaskQueryDTO';
+import { TaskDTO } from 'src/classes/dtos/tasks/TaskDTO';
+import { TaskQueryDTO } from 'src/classes/dtos/tasks/TaskQueryDTO';
+import { TaskEntity } from 'src/entities/TaskEntity';
 import { TaskCreateSchema, TaskDeleteSchema, TaskFindSchema, TaskUpdateSchema } from 'src/schemas/TaskSchema';
 import { TaskService } from 'src/services/TaskService';
 
@@ -13,29 +14,29 @@ export class TaskController {
 
   @Post()
   @UsePipes(new ZodValidationPipe(TaskCreateSchema))
-  async create(@Req() request: Request, @Body() taskDTO: TaskDTO): Promise<ResponseDTO> {
-    const task = await this.taskService.create(taskDTO, request.user.id);
-    return new ResponseDTO(HttpStatus.OK, 'Task created', { task });
+  async create(@Req() { user }: Request, @Body() task: TaskDTO): Promise<ResponseDTO<TaskDTO>> {
+    const taskCreated = await this.taskService.create(task, user.id);
+    return new ResponseDTO(HttpStatus.OK, 'Task Created', taskCreated);
   }
 
   @Get()
   @UsePipes(new ZodValidationPipe(TaskFindSchema))
-  async find(@Req() request: Request, @Query() query: TaskQueryDTO): Promise<ResponseDTO> {
+  async find(@Req() request: Request, @Query() query: TaskQueryDTO): Promise<ResponseDTO<TaskEntity[]>> {
     const tasks = await this.taskService.find(request.user.id, query);
-    return new ResponseDTO(HttpStatus.OK, 'Tasks found', { tasks });
+    return new ResponseDTO(HttpStatus.OK, 'Tasks List', tasks);
   }
 
   @Put()
   @UsePipes(new ZodValidationPipe(TaskUpdateSchema))
-  async update(@Req() request: Request, @Body() taskDTO: TaskDTO): Promise<ResponseDTO> {
+  async update(@Req() request: Request, @Body() taskDTO: TaskDTO): Promise<ResponseDTO<TaskEntity>> {
     const task = await this.taskService.update({ ...taskDTO, updatedBy: request.user.id });
-    return new ResponseDTO(HttpStatus.OK, 'Task updated', task);
+    return new ResponseDTO(HttpStatus.OK, 'Task Updated', task);
   }
 
   @Delete(':id')
   @UsePipes(new ZodValidationPipe(TaskDeleteSchema))
-  async delete(@Req() request: Request, @Param('id') id: string): Promise<ResponseDTO> {
+  async delete(@Req() request: Request, @Param('id') id: string): Promise<ResponseDTO<TaskEntity>> {
     const task = await this.taskService.delete(id, request.user.id);
-    return new ResponseDTO(HttpStatus.OK, 'Task deleted', { task });
+    return new ResponseDTO(HttpStatus.OK, 'Task Deleted', task);
   }
 }

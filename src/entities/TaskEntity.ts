@@ -1,12 +1,18 @@
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, Generated, PrimaryColumn, UpdateDateColumn } from 'typeorm';
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { TasksListEntity } from './ListEntity';
 
-@Entity('tasks')
+Entity('tasks');
 export class TaskEntity {
-  @Generated('uuid')
-  @PrimaryColumn({ name: 'id', type: 'uuid', primaryKeyConstraintName: 'id' })
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ name: 'created_by', type: 'uuid', nullable: false })
+  @Column({ name: 'title', type: 'varchar', length: 30 })
+  title: string;
+
+  @Column({ name: 'description', type: 'varchar', length: 90 })
+  description: string;
+
+  @Column({ name: 'created_by', type: 'uuid' })
   createdBy: string;
 
   @Column({ name: 'updated_by', type: 'uuid', nullable: true })
@@ -15,35 +21,38 @@ export class TaskEntity {
   @Column({ name: 'deleted_by', type: 'uuid', nullable: true })
   deletedBy: string;
 
-  @Column({ name: 'title', type: 'varchar', nullable: false })
-  title: string;
+  @Column({ name: 'list', type: 'uuid', nullable: true })
+  list: string;
 
-  @Column({ name: 'description', type: 'varchar', nullable: true })
-  description: string;
+  @CreateDateColumn({ name: 'created_at', type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
+  createdAt: Date;
 
-  @CreateDateColumn({ name: 'created_at', type: 'timestamp with time zone', default: () => 'CURRENT_TIMESTAMP' })
-  createdAt: string;
+  @UpdateDateColumn({ name: 'updated_at', type: 'timestamptz', nullable: true })
+  updatedAt: Date;
 
-  @UpdateDateColumn({ name: 'updated_at', type: 'timestamp with time zone', default: () => 'CURRENT_TIMESTAMP' })
-  updatedAt: string;
+  @DeleteDateColumn({ name: 'deleted_at', type: 'timestamptz', nullable: true })
+  deletedAt: Date;
 
-  @DeleteDateColumn({ name: 'deleted_at', type: 'timestamp with time zone', nullable: true })
-  deletedAt: string;
+  @ManyToOne(() => TasksListEntity, (tasksList) => tasksList.id)
+  @JoinColumn({ name: 'list' })
+  tasksList: TasksListEntity;
 
-  constructor(createdBy: string, updatedBy: string, title: string, description: string) {
-    this.createdBy = createdBy;
-    this.updatedBy = updatedBy;
+  constructor(createdBy: string, updatedBy: string | null, title: string, description: string, list: string | null) {
     this.title = title;
     this.description = description;
+    this.createdBy = createdBy;
+    this.updatedBy = updatedBy;
+    this.list = list;
   }
 
-  public update(updatedBy: string, title: string, description: string) {
+  public update(updatedBy: string, title: string, description: string, list: string) {
     this.updatedBy = updatedBy || this.updatedBy;
     this.title = title || this.title;
     this.description = description || this.description;
+    this.list = list || this.list;
   }
 
-  public setDeletedBy(userId: string) {
+  public delete(userId: string) {
     this.deletedBy = userId;
   }
 }

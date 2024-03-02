@@ -1,6 +1,6 @@
 import { NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { TaskQueryDTO } from 'src/classes/dtos/TaskQueryDTO';
+import { TaskQueryDTO } from 'src/classes/dtos/tasks/TaskQueryDTO';
 import { TaskEntity } from 'src/entities/TaskEntity';
 import { IsNull, Repository } from 'typeorm';
 
