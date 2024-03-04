@@ -5,7 +5,7 @@ import JwtModuleConfig from 'src/configs/JwtModuleConfig';
 import { DatabaseModule } from './DatabaseModule';
 import { MessageModule } from './MessageModule';
 import { AuthModule } from './auth/AuthModule';
-import { TaskListModule } from './lists/TaskListModule';
+import { TaskListModule } from './lists/ListModule';
 import { TaskModule } from './tasks/TaskModule';
 
 @Module({

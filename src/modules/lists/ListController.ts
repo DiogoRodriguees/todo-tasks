@@ -4,7 +4,7 @@ import { Request } from 'src/classes/dtos/Request';
 import { ResponseDTO } from 'src/classes/dtos/ResponseDTO';
 import { TaskListDTO } from 'src/classes/dtos/lists/TaskListDTO';
 import { CreateListSchema, ListDeleteSchema } from 'src/schemas/TaskListSchema';
-import { TaskListService } from './TaskListService';
+import { TaskListService } from './ListService';
 
 @Controller('/v1/list')
 export class TaskListController {
@@ -20,7 +20,7 @@ export class TaskListController {
   @Get()
   async list(@Req() { user }: Request) {
     const lists = await this.taskListService.getTasksListByUser(user.id);
-    return new ResponseDTO(HttpStatus.OK, 'Tasks List', lists);
+    return new ResponseDTO(HttpStatus.BAD_REQUEST, 'Tasks List', lists);
   }
 
   @Delete('/:id')
