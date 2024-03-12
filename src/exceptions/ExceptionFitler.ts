@@ -1,4 +1,4 @@
-import { ArgumentsHost, Catch, ExceptionFilter, HttpException, Logger } from '@nestjs/common';
+import { ArgumentsHost, Catch, ExceptionFilter, HttpException } from '@nestjs/common';
 import { Request, Response } from 'express';
 
 @Catch(HttpException)
@@ -9,8 +9,6 @@ export class HttpExceptionFilter implements ExceptionFilter {
     const request = ctx.getRequest<Request>();
     const status = exception.getStatus();
     const message = exception.message;
-
-    Logger.debug(message);
 
     const genericMessage = message === message ? 'Chat' : message;
 
