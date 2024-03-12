@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { TasksListEntity } from './ListEntity';
-import { TaskListRepository } from './ListRepository';
+import { TasksListEntity } from '../entities/ListEntity';
+import { TaskListRepository } from '../repositories/ListRepository';
 
 @Injectable()
 export class TaskListService {

@@ -1,5 +1,5 @@
 import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
-import { TasksListEntity } from '../lists/ListEntity';
+import { TasksListEntity } from './ListEntity';
 
 Entity('tasks');
 export class TaskEntity {
